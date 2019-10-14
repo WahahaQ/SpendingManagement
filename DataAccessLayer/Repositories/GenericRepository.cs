@@ -39,12 +39,12 @@ namespace DataAccessLayer.Repositories
 			return DbSet.Find(id);
 		}
 
-		public TEntity GetItem(TEntity item)
+		virtual public TEntity GetItem(TEntity item)
 		{
 			return DbSet.Find(item);
 		}
 
-		public TEntity GetItem(Func<TEntity, bool> predicate)
+		virtual public TEntity GetItem(Func<TEntity, bool> predicate)
 		{
 			return DbSet.AsNoTracking().Where(predicate).FirstOrDefault();
 		}
