@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
-using DataAccessLayer.Entities;
 
 namespace DataAccessLayer
 {
 	public class ApplicationDbContext : DbContext
 	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options) { }
 
 		public DbSet<Tag> Tags { get; set; }
