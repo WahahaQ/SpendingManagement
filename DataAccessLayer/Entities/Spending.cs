@@ -8,14 +8,15 @@ namespace DataAccessLayer.Entities
 	[Table("Spendings")]
 	public class Spending : Entity
 	{
-		[MaxLength(24)]
-		[Required(AllowEmptyStrings = false)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
+		[StringLength(24, ErrorMessage = "Name can't be longer than 24 characters")]
 		public string Name { get; set; }
 
-		[MaxLength(256)]
-		[Required(AllowEmptyStrings = false)]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Description is required")]
+		[StringLength(256, ErrorMessage = "Description can't be longer than 256 characters")]
 		public string Description { get; set; }
 
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Creation time is required")]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime CreationTime { get; set; }
 

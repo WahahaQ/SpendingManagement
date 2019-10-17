@@ -44,7 +44,7 @@ namespace DataAccessLayer.Repositories
 
 		virtual async public Task CreateAsync(TEntity item)
 		{
-			DbSet.Add(item);
+			await DbSet.AddAsync(item);
 			await Context.SaveChangesAsync();
 		}
 
