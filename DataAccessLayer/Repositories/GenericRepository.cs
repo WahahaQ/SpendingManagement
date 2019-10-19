@@ -22,7 +22,7 @@ namespace DataAccessLayer.Repositories
 			DbSet = context.Set<TEntity>();
 		}
 
-		#region PublicMethods
+		#region Methods
 
 		virtual public IEnumerable<TEntity> GetItems()
 		{
@@ -67,6 +67,6 @@ namespace DataAccessLayer.Repositories
 			Context.SaveChanges();
 		}
 
-		#endregion PublicMethods
+		#endregion Methods
 	}
 }

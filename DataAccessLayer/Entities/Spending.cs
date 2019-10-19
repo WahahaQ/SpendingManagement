@@ -20,6 +20,10 @@ namespace DataAccessLayer.Entities
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime CreationTime { get; set; }
 
+		[ForeignKey("User")]
+		public int UserId { get; set; }
+		public User User { get; set; }
+
 		[ForeignKey("Category")]
 		public int CategoryId { get; set; }
 		public Category Category { get; set; }

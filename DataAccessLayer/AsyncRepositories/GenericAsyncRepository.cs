@@ -6,20 +6,30 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
+using DataAccessLayer.Repositories;
 
-namespace DataAccessLayer.Repositories
+namespace DataAccessLayer.AsyncRepositories
 {
-	public abstract class GenericAsyncRepository<TEntity> : GenericRepository<TEntity>, IGenericAsyncRepository<TEntity> where TEntity : Entity
+	public abstract class GenericAsyncRepository<TEntity> : IGenericAsyncRepository<TEntity> where TEntity : Entity
 	{
-		public GenericAsyncRepository(DbContext context) : base(context)
-		{ }
+		#region Fields
 
-		#region PublicMethods
+		public DbContext Context { get; set; }
+		public DbSet<TEntity> DbSet { get; set; }
+
+		#endregion Fields
+
+		public GenericAsyncRepository(DbContext context)
+		{
+			Context = context;
+			DbSet = context.Set<TEntity>();
+		}
+
+		#region Methods
 
 		virtual async public Task<IEnumerable<TEntity>> GetItemsAsync()
 		{
-			return await DbSet.AsNoTracking()
-					 .ToListAsync();
+			return await DbSet.AsNoTracking().ToListAsync();
 		}
 
 		virtual async public Task<IEnumerable<TEntity>> GetItemsAsync(Expression<Func<TEntity, bool>> predicate)
@@ -60,6 +70,6 @@ namespace DataAccessLayer.Repositories
 			await Context.SaveChangesAsync();
 		}
 
-		#endregion PublicMethods
+		#endregion Methods
 	}
 }

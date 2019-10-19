@@ -3,9 +3,9 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Repositories
 {
-	public class TagsRepository : GenericAsyncRepository<Tag>
+	public class GenericTagsRepository : GenericRepository<Tag>
 	{
-		public TagsRepository(DbContext context) : base(context)
+		public GenericTagsRepository(DbContext context) : base(context)
 		{ }
 	}
 }

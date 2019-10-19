@@ -6,7 +6,7 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Interfaces
 {
-	interface IGenericAsyncRepository<TEntity> where TEntity : Entity
+	public interface IGenericAsyncRepository<TEntity> where TEntity : Entity
 	{
 		Task CreateAsync(TEntity item);
 		Task<TEntity> GetItemAsync(TEntity item);
