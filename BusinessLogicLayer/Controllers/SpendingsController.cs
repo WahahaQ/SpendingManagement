@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using DataAccessLayer;
+using Microsoft.AspNetCore.Mvc;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using DTOLayer.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using AutoMapper;
 
 namespace BusinessLogicLayer.Controllers
 {
@@ -32,9 +28,10 @@ namespace BusinessLogicLayer.Controllers
 		#region Methods
 
 		[HttpGet]
-		public async Task<IEnumerable<Spending>> GetSpendingsAsync()
+		public async Task<IEnumerable<SpendingDTO>> GetSpendingsAsync()
 		{
-			return await _repository.GetItemsAsync();
+			IEnumerable<Spending> spendings = await _repository.GetItemsAsync();
+			return _mapper.Map<List<SpendingDTO>>(spendings);
 		}
 
 		// Task<IEnumerable<TEntity>> GetItemsAsync(Expression<Func<TEntity, bool>> predicate);

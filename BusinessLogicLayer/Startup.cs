@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DataAccessLayer;
+using AutoMapper;
 
 namespace BusinessLogicLayer
 {
@@ -25,8 +26,18 @@ namespace BusinessLogicLayer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// Adding Context which using SQL server:
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration["ConnectionString"]));
+
+			// Creating mapper as singleton onject:
+			MapperConfiguration config = new MapperConfiguration(cfg =>
+			{
+				cfg.AddProfile(new MapperConfigurator());
+			});
+
+			IMapper mapper = config.CreateMapper();
+			services.AddSingleton(mapper);
 
 			services.AddControllers();
 		}
