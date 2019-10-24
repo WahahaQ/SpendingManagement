@@ -28,19 +28,62 @@ namespace BusinessLogicLayer.Controllers
 		#region Methods
 
 		[HttpGet]
-		public async Task<IEnumerable<SpendingDTO>> GetSpendingsAsync()
+		public async Task<IEnumerable<SpendingDTO>> GetSpendings()
 		{
 			IEnumerable<Spending> spendings = await _repository.GetItemsAsync();
 			return _mapper.Map<List<SpendingDTO>>(spendings);
 		}
 
-		// Task<IEnumerable<TEntity>> GetItemsAsync(Expression<Func<TEntity, bool>> predicate);
-		// Task<TEntity> GetItemByIdAsync(int id);
-		// Task<TEntity> GetItemAsync(TEntity item);
-		// Task<TEntity> GetItemAsync(Expression<Func<TEntity, bool>> predicate);
-		// Task CreateAsync(TEntity item);
-		// Task UpdateAsync(TEntity item);
-		// Task RemoveAsync(TEntity item);
+		[HttpGet("{id}")]
+		public async Task<SpendingDTO> GetSpendingById(int id)
+		{
+			if (id < 0)
+			{
+				return null;
+			}
+
+			Spending spending = await _repository.GetItemByIdAsync(id);
+			return _mapper.Map<SpendingDTO>(spending);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateSpending(SpendingDTO spending)
+		{
+			if (spending == null)
+			{
+				return BadRequest("Not a valid spending id");
+			}
+
+			Spending itemToCreate = _mapper.Map<Spending>(spending);
+			await _repository.CreateAsync(itemToCreate);
+			return Ok();
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> UpdateSpending(SpendingDTO spending)
+		{
+			if (spending == null)
+			{
+				return BadRequest("Not a valid spending id");
+			}
+
+			Spending itemToUpdate = _mapper.Map<Spending>(spending);
+			await _repository.UpdateAsync(itemToUpdate);
+			return Ok();
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteSpending(SpendingDTO spending)
+		{
+			if (spending == null)
+			{
+				return BadRequest("Not a valid spending id");
+			}
+
+			Spending itemToDelete = _mapper.Map<Spending>(spending);
+			await _repository.RemoveAsync(itemToDelete);
+			return Ok();
+		}
 
 		#endregion Methods
 	}
