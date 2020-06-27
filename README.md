@@ -1,2 +1,2 @@
 # WahahaQ.SpendingManagement
-Spending management using EF, Web API, Angular
+Spending management backend using EF, Web API
